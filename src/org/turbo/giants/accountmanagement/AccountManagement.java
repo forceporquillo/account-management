@@ -1,14 +1,13 @@
 package org.turbo.giants.accountmanagement;
 
+import org.turbo.giants.accountmanagement.listener.AccountManagerState;
+
 public class AccountManagement {
 
     public static void main(String[] args) {
         AccountManagerState state = AccountManagerStateImpl.getInstance();
 
-        state.setListener(information -> {
-            System.out.println("called...");
-            InformationWriter.write(information);
-        });
+        state.setListener(InformationWriter::write);
 
     }
 }
