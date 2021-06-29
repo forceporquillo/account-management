@@ -1,14 +1,8 @@
 package org.turbo.giants.accountmanagement;
 
+import org.turbo.giants.accountmanagement.listener.AccountManagerState;
+import org.turbo.giants.accountmanagement.listener.FileInputListener;
 import org.turbo.giants.accountmanagement.view.AccountManager;
-
-import java.util.List;
-
-interface FileInputLister {
-
-    void invalidate(Information information);
-}
-
 
 public class AccountManagerStateImpl extends BaseAccountManager implements AccountManagerState {
 
@@ -19,7 +13,7 @@ public class AccountManagerStateImpl extends BaseAccountManager implements Accou
     // optional if mag threading ka convert mo into atomic integer.
     private int index = 0;
 
-    private FileInputLister lister;
+    private FileInputListener lister;
 
     private AccountManagerStateImpl() {
         super.setCallback(new AccountManager(this));
@@ -69,7 +63,7 @@ public class AccountManagerStateImpl extends BaseAccountManager implements Accou
     }
 
     @Override
-    public void setListener(FileInputLister listener) {
+    public void setListener(FileInputListener listener) {
         this.lister = listener;
     }
 

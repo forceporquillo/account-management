@@ -1,4 +1,6 @@
-package org.turbo.giants.accountmanagement;
+package org.turbo.giants.accountmanagement.listener;
+
+import org.turbo.giants.accountmanagement.Information;
 
 public interface AccountManagerState {
 
@@ -10,5 +12,5 @@ public interface AccountManagerState {
 
     void display();
 
-    void setListener(FileInputLister listener);
+    void setListener(FileInputListener listener);
 }
