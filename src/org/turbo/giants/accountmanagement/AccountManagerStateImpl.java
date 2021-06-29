@@ -68,7 +68,7 @@ public class AccountManagerStateImpl extends BaseAccountManager implements Accou
         invalidate(index);
 
         return index == size()
-                || getMap().size() == 0;
+                || getMap().isEmpty();
     }
 
     private int size() {
