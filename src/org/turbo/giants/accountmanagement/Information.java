@@ -118,6 +118,18 @@ public class Information implements Serializable {
                 Objects.equals(phoneNumber, that.phoneNumber);
     }
 
+    public boolean isEqualNoID(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Information that = (Information) o;
+        return yearLevel == that.yearLevel &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(course, that.course) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(phoneNumber, that.phoneNumber);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(studentId, name, course, yearLevel, address, email, phoneNumber);

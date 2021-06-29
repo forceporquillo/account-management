@@ -1,6 +1,5 @@
 package org.turbo.giants.accountmanagement.view;
 
-import org.omg.CORBA.CODESET_INCOMPATIBLE;
 import org.turbo.giants.accountmanagement.*;
 
 import javax.swing.*;

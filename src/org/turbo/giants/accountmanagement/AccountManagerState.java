@@ -9,4 +9,6 @@ public interface AccountManagerState {
     boolean previous();
 
     void display();
+
+    void setListener(FileInputLister listener);
 }

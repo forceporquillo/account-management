@@ -33,6 +33,22 @@ public class Util {
         };
     }
 
+    public static Information arrayToObject(String[] strings) {
+        if (strings.length != 7) {
+            throw new IllegalArgumentException();
+        }
+
+        return new Information(
+                strings[0],
+                strings[1],
+                strings[2],
+                Integer.parseInt(strings[3]),
+                strings[4],
+                strings[5],
+                strings[6]
+        );
+    }
+
     public static Information updateInfo(Information newInfo, Information oldInfo) {
         oldInfo.setStudentId(newInfo.getStudentId());
         oldInfo.setName(newInfo.getName());

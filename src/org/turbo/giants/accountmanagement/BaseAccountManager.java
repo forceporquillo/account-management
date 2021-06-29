@@ -30,33 +30,31 @@ abstract class BaseAccountManager {
             add(information);
         }
 
-        callback.invalidateList((List<Information>) map.values());
-    }
 
-    private void itemExist(Information information) {
-        callback.onInformationExist(information);
-        exist(information);
+        callback.invalidateList((List<Information>) map.values());
     }
 
     abstract void exist(Information information);
 
     private void update(String keyId, Information information) {
         map.put(keyId, information);
+        exist(information);
         callback.onUpdateSuccess();
     }
 
     private void add(Information information) {
         map.put(information.getStudentId(), information);
+        exist(information);
         callback.onAddSuccess(information);
     }
 
-    protected int invalidate(int index) {
+    protected void invalidate(int index) {
         Object[] infos = map.values().toArray();
 
         boolean isExist = false;
 
         if (infos.length == 0) {
-            return index;
+            return;
         }
 
         for (int i = 0; i < infos.length; i++) {
@@ -72,7 +70,6 @@ abstract class BaseAccountManager {
             notifyData(null);
         }
 
-        return index;
     }
 
     private void notifyData(Information notification) {

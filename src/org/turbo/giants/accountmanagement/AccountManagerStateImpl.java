@@ -2,6 +2,14 @@ package org.turbo.giants.accountmanagement;
 
 import org.turbo.giants.accountmanagement.view.AccountManager;
 
+import java.util.List;
+
+interface FileInputLister {
+
+    void invalidate(Information information);
+}
+
+
 public class AccountManagerStateImpl extends BaseAccountManager implements AccountManagerState {
 
     private static final Object STATE_LOCK = new Object();
@@ -10,6 +18,8 @@ public class AccountManagerStateImpl extends BaseAccountManager implements Accou
 
     // optional if mag threading ka convert mo into atomic integer.
     private int index = 0;
+
+    private FileInputLister lister;
 
     private AccountManagerStateImpl() {
         super.setCallback(new AccountManager(this));
@@ -26,7 +36,8 @@ public class AccountManagerStateImpl extends BaseAccountManager implements Accou
 
     @Override
     void exist(Information information) {
-        // notify if existing yung item
+        System.out.println("hiii...");
+        lister.invalidate(information);
     }
 
     @Override
@@ -55,6 +66,11 @@ public class AccountManagerStateImpl extends BaseAccountManager implements Accou
 
         System.out.println("Display");
         getMap().values().forEach(information -> System.out.println(information.toString()));
+    }
+
+    @Override
+    public void setListener(FileInputLister listener) {
+        this.lister = listener;
     }
 
     @Override
