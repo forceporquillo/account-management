@@ -1,12 +1,12 @@
-package com.force.codes;
+package org.turbo.giants.accountmanagement;
 
 public interface AccountManagerState {
 
     void contains(final Information information);
 
-    int next();
+    boolean next();
 
-    int previous();
+    boolean previous();
 
     void display();
 }

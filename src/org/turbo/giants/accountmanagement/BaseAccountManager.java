@@ -1,11 +1,11 @@
-package com.force.codes;
+package org.turbo.giants.accountmanagement;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 
-abstract class BaseStateManager {
+abstract class BaseAccountManager {
 
-    protected static final LinkedHashMap<String, Information> map = new LinkedHashMap<>();
+    private static final LinkedHashMap<String, Information> map = new LinkedHashMap<>();
 
     private AccountManagerCallback callback;
 
@@ -53,18 +53,33 @@ abstract class BaseStateManager {
     protected int invalidate(int index) {
         Object[] infos = map.values().toArray();
 
+        boolean isExist = false;
+
         if (infos.length == 0) {
             return index;
         }
 
         for (int i = 0; i < infos.length; i++) {
             if (i == index) {
-                callback.onInformationExist((Information) infos[i]);
+                notifyData((Information) infos[i]);
+                System.out.print("Item Exist at Index " + i + "\n" + infos[i].toString());
+                isExist = true;
                 break;
             }
+        }
+
+        if (!isExist) {
+            notifyData(null);
         }
 
         return index;
     }
 
+    private void notifyData(Information notification) {
+        callback.onInformationExist(notification);
+    }
+
+    public static LinkedHashMap<String, Information> getMap() {
+        return map;
+    }
 }

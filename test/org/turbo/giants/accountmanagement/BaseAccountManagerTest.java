@@ -1,11 +1,11 @@
-package com.force.codes;
+package org.turbo.giants.accountmanagement;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
 
-public class BaseStateManagerTest extends BaseTestCase {
+public class BaseAccountManagerTest extends BaseTestCase {
 
     private static final LinkedHashMap<String, Information> map = new LinkedHashMap<>();
 

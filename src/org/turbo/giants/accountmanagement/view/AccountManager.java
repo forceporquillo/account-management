@@ -1,6 +1,7 @@
-package com.force.codes.ui;
+package org.turbo.giants.accountmanagement.view;
 
-import com.force.codes.*;
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
+import org.turbo.giants.accountmanagement.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -84,8 +85,8 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
             courseComboBox.addItem(course);
         }
 
-        for (int i = 1; i <= 4; i++) {
-            levelComboBox.addItem(i);
+        for (int i = 0; i < 4; i++) {
+            levelComboBox.addItem(i + 1);
         }
     }
 
@@ -95,13 +96,11 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
 
         nextButton.addActionListener(e -> {
             listener.display();
-            int index = listener.next();
-            System.out.print(index);
+            System.out.print(listener.next());
         });
 
         previousButton.addActionListener(e -> {
-            int index = listener.previous();
-            System.out.print(index);
+            System.out.print(listener.previous());
         });
 
         showButton.setVisible(false);
@@ -134,7 +133,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
         int index               = courseComboBox.getSelectedIndex();
         String course           = courses.get(index);
 
-        int yearLevel           = levelComboBox.getSelectedIndex() + 1;
+        int yearLevel           = levelComboBox.getSelectedIndex();
 
         String address          = getAddress();
         String email            = getEmail();
@@ -163,6 +162,11 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
 
     @Override
     public void onInformationExist(Information information) {
+        if (information == null) {
+            redraw();
+            return;
+        }
+
         final String[] infos = new String[] {
                 information.getStudentId(),
                 information.getName(),
@@ -178,9 +182,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
 
         for (int i = 0; i < courses.size(); i++) {
             final String course = information.getCourse();
-            System.out.println(course);
             if (courses.get(i).equals(course)) {
-                System.out.println(courses.get(i));
                 courseComboBox.setSelectedIndex(i);
                 break;
             }
@@ -190,9 +192,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
 
         try {
             index = information.getYearLevel();
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
+        } catch (IndexOutOfBoundsException ignore) {}
 
         levelComboBox.setSelectedIndex(index);
     }
@@ -274,10 +274,10 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
     }
 
     private void showMessage(boolean add) {
-        if (!add) {
-            messageBox(Constants.MESSAGE_UPDATED, Constants.UPDATE_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        messageBox(Constants.MESSAGE_SUCCESS, Constants.SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+        messageBox(
+                !add ? Constants.MESSAGE_UPDATED : Constants.MESSAGE_SUCCESS,
+                !add ? Constants.UPDATE_SUCCESS : Constants.SUCCESS,
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }
 }
