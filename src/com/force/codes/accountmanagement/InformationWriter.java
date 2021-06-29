@@ -69,10 +69,7 @@ class InformationWriter {
     private static List<Information> csvReader() {
         List<Information> information = new ArrayList<>();
 
-        try {
-
-            CSVReader csvReader = new CSVReader(new FileReader(FILE_NAME));
-
+        try (CSVReader csvReader = new CSVReader(new FileReader(FILE_NAME))) {
             String[] nextRecord;
 
             while ((nextRecord = csvReader.readNext()) != null) {
