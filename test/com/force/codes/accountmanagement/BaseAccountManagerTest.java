@@ -1,4 +1,4 @@
-package org.turbo.giants.accountmanagement;
+package com.force.codes.accountmanagement;
 
 import org.junit.Assert;
 import org.junit.Test;

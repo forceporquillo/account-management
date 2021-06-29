@@ -1,4 +1,4 @@
-package org.turbo.giants.accountmanagement;
+package com.force.codes.accountmanagement;
 
 import junit.framework.TestCase;
 

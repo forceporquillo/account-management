@@ -1,8 +1,11 @@
-package org.turbo.giants.accountmanagement.view;
+package com.force.codes.accountmanagement.view;
 
-import org.turbo.giants.accountmanagement.*;
-import org.turbo.giants.accountmanagement.listener.AccountManagerCallback;
-import org.turbo.giants.accountmanagement.listener.AccountManagerState;
+import com.force.codes.accountmanagement.AccountInformationException;
+import com.force.codes.accountmanagement.Constants;
+import com.force.codes.accountmanagement.Information;
+import com.force.codes.accountmanagement.Util;
+import com.force.codes.accountmanagement.listener.AccountManagerCallback;
+import com.force.codes.accountmanagement.listener.AccountManagerState;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,31 +13,8 @@ import java.util.List;
 
 public class AccountManager extends JFrame implements AccountManagerCallback {
 
-    private static final String TITLE = "Account Management";
     public static final String EMPTY = "";
-
-    private JPanel Main;
-    private JTextField studentIdTextField;
-    private JTextField nameTextField;
-
-    private JComboBox<Integer> levelComboBox;
-    private JComboBox<String> courseComboBox;
-
-    private JTextField addressTextField;
-    private JTextField emailTextField;
-    private JTextField contactTextField;
-
-    private JButton nextButton;
-    private JButton previousButton;
-    private JButton updateButton;
-    private JButton exitButton;
-    private JButton showButton;
-
-    private AccountManagerState listener;
-
-    // patanggal nalang if di mo need ng list view
-    // private final InformationListView informationListView;
-
+    private static final String TITLE = "Account Management";
     private static final List<String> courses = new ArrayList<String>() {
         {
             add("BSCSSE");
@@ -43,7 +23,14 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
             add("BSME");
         }
     };
-
+    private JPanel Main;
+    private JTextField studentIdTextField;
+    private JTextField nameTextField;
+    private JComboBox<Integer> levelComboBox;
+    private JComboBox<String> courseComboBox;
+    private JTextField addressTextField;
+    private JTextField emailTextField;
+    private JTextField contactTextField;
     private final List<JTextField> fieldList = new ArrayList<JTextField>() {
         {
             add(studentIdTextField);
@@ -53,7 +40,14 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
             add(contactTextField);
         }
     };
+    private JButton nextButton;
+    private JButton previousButton;
+    private JButton updateButton;
+    private JButton exitButton;
 
+    // patanggal nalang if di mo need ng list view
+    // private final InformationListView informationListView;
+    private JButton showButton;
     private final List<JButton> buttonList = new ArrayList<JButton>() {
         {
             add(nextButton);
@@ -63,6 +57,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
             add(showButton);
         }
     };
+    private AccountManagerState listener;
 
     public AccountManager(final AccountManagerState state) {
 
@@ -116,7 +111,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
         }
     }
 
-    private void messageBox(String body, String title, int errorType){
+    private void messageBox(String body, String title, int errorType) {
         JOptionPane.showMessageDialog(this, body, title, errorType);
     }
 
@@ -124,21 +119,22 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
         try {
             Information information = getInformation();
             listener.contains(information);
-        } catch (Exception ignored) { }
+        } catch (Exception ignored) {
+        }
     }
 
     private Information getInformation() throws AccountInformationException {
-        String studentId        = getStudentId();
-        String name             = getUserName();
+        String studentId = getStudentId();
+        String name = getUserName();
 
-        int index               = courseComboBox.getSelectedIndex();
-        String course           = courses.get(index);
+        int index = courseComboBox.getSelectedIndex();
+        String course = courses.get(index);
 
-        int yearLevel           = levelComboBox.getSelectedIndex();
+        int yearLevel = levelComboBox.getSelectedIndex();
 
-        String address          = getAddress();
-        String email            = getEmail();
-        String phoneNumber      = getPhoneNumber();
+        String address = getAddress();
+        String email = getEmail();
+        String phoneNumber = getPhoneNumber();
 
         return new Information.Builder()
                 .setStudentId(studentId)
@@ -157,7 +153,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
     }
 
     @Override
-    public void onUpdateSuccess( ) {
+    public void onUpdateSuccess() {
         showMessage(false);
     }
 
@@ -168,7 +164,7 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
             return;
         }
 
-        final String[] infos = new String[] {
+        final String[] infos = new String[]{
                 information.getStudentId(),
                 information.getName(),
                 information.getAddress(),
@@ -193,7 +189,8 @@ public class AccountManager extends JFrame implements AccountManagerCallback {
 
         try {
             index = information.getYearLevel();
-        } catch (IndexOutOfBoundsException ignore) {}
+        } catch (IndexOutOfBoundsException ignore) {
+        }
 
         levelComboBox.setSelectedIndex(index);
     }

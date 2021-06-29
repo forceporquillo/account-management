@@ -1,7 +1,7 @@
-package org.turbo.giants.accountmanagement.view;
+package com.force.codes.accountmanagement.view;
 
-import org.turbo.giants.accountmanagement.Information;
-import org.turbo.giants.accountmanagement.Util;
+import com.force.codes.accountmanagement.Information;
+import com.force.codes.accountmanagement.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
